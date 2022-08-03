@@ -1,16 +1,16 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import pyodbc
+import config
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+config.server+';DATABASE='+config.database+';UID='+config.username+';PWD='+ config.password)
+    cursor = cnxn.cursor()
+    cursor.execute('SELECT TOP 5 [code], [Остаток] as Count, [Цена] as Price FROM sales.w_остаток_как_на_сайте')
+    row = cursor.fetchone()
+    while row:
+        print(row[0], row[1], row[2])
+        row = cursor.fetchone()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
