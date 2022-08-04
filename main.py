@@ -7,10 +7,7 @@ import json
 def redisConnect():
     r = redis.Redis(host=config.redis_server, port=6379, password=config.redis_password, username=config.redis_user)
     return r
-    # print(r.connection)
-    # r.set("England", "Manchester")
-    # r.mset({"Croatia": "Zagreb", "Bahamas": "Nassau"})
-    # r.get("Bahamas")
+
 
 if __name__ == '__main__':
     cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+config.server+';DATABASE='+config.database+';UID='+config.username+';PWD='+ config.password)
@@ -19,7 +16,6 @@ if __name__ == '__main__':
     row = cursor.fetchone()
     rc = redisConnect()
     uts = {}
-
 
     while row:
         uts.update({str(row[0]): {"Count": float(row[1]), "Price": float(row[2])}})
